@@ -10,13 +10,16 @@ public class Character : MonoBehaviour
     public int move_method;
     public float speed;
     public Vector2 speed_vec;
-
-    
+    public float Horizontal;
+    public float Vertical;
+    public Animator animator;
+    public SpriteRenderer rend;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        animator = GetComponent<Animator>();
+        rend = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -26,52 +29,46 @@ public class Character : MonoBehaviour
     }
 
     void PlayerMove(){
-        if(move_method == 0){
+        Horizontal = Input.GetAxis("Horizontal");
+        Vertical = Input.GetAxis("Vertical");
+       
             speed_vec = Vector2.zero;
 
             if (Input.GetKey(KeyCode.W)){
                 speed_vec.y += speed;
+                animator.SetBool("characterMoveUp",true);
+            }
+            if (Input.GetKeyUp(KeyCode.W)){
+                animator.SetBool("characterMoveUp",false);
             }
             if (Input.GetKey(KeyCode.S)){
                 speed_vec.y -= speed;
+                animator.SetBool("characterMoveDawn",true);
+            }
+            if (Input.GetKeyUp(KeyCode.S)){
+                animator.SetBool("characterMoveDawn",false);
             }
             if (Input.GetKey(KeyCode.A)){
                 speed_vec.x -= speed;
+                rend.flipX = false;
+                animator.SetBool("characterMoveSide",true);
+            }
+            if (Input.GetKeyUp(KeyCode.A)){
+                animator.SetBool("characterMoveSide",false);
             }
             if (Input.GetKey(KeyCode.D)){
                 speed_vec.x += speed;
+                rend.flipX = true;
+                animator.SetBool("characterMoveSide",true);
             }
-
+            if(Input.GetKeyUp(KeyCode.D)){
+                animator.SetBool("characterMoveSide",false);
+            }
             transform.Translate(speed_vec);
-        }
-        else if (move_method == 1){
-            speed_vec.x = Input.GetAxis("Horizontal") * speed;
-            speed_vec.y = Input.GetAxis("Vertical") * speed;
 
-            transform.Translate(speed_vec);
-        }
-        else if (move_method == 2){
-            speed_vec = Vector2.zero;
-
-            if (Input.GetKey(KeyCode.W)){
-                speed_vec.y += speed;
-            }
-            if (Input.GetKey(KeyCode.S)){
-                speed_vec.y -= speed;
-            }
-            if (Input.GetKey(KeyCode.A)){
-                speed_vec.x -= speed;
-                transform.localScale = new Vector3(0.5f,0.5f,1);
-            }
-            if (Input.GetKey(KeyCode.D)){
-                speed_vec.x += speed;
-                transform.localScale = new Vector3(-0.5f,0.5f,1);
-            }
-
-            //transform.Translate(speed_vec);
-            GetComponent<Rigidbody2D>().velocity = speed_vec;
-        }
-
+            
+        
+        
  
     }
     

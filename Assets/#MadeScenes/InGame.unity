@@ -284,7 +284,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: 0abce8fe2a504c09882e1a018ff9dc81, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_WarningMessage: 
@@ -371,9 +371,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Target: {fileID: 0}
-  move_method: 1
-  speed: 1
+  move_method: 0
+  speed: 0.01
   speed_vec: {x: 0, y: 0}
+  Horizontal: 0
+  Vertical: 0
+  animator: {fileID: 1146453561}
+  rend: {fileID: 0}
 --- !u!1 &1469614376
 GameObject:
   m_ObjectHideFlags: 0
