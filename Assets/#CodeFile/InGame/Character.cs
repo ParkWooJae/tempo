@@ -7,19 +7,20 @@ using UnityEngine.UI;
 public class Character : MonoBehaviour
 {
     public GameObject Target;
-    public int move_method;
     public float speed;
     public Vector2 speed_vec;
     public float Horizontal;
     public float Vertical;
     public Animator animator;
     public SpriteRenderer rend;
+    Rigidbody2D rid2D;
 
     // Start is called before the first frame update
     void Start()
     {
         animator = GetComponent<Animator>();
         rend = GetComponent<SpriteRenderer>();
+        rid2D = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
@@ -64,7 +65,7 @@ public class Character : MonoBehaviour
             if(Input.GetKeyUp(KeyCode.D)){
                 animator.SetBool("characterMoveSide",false);
             }
-            transform.Translate(speed_vec);
+            GetComponent<Rigidbody2D>().velocity = speed_vec;
 
             
         
