@@ -13,6 +13,7 @@ public class characterMove : MonoBehaviour
     //public SpriteRenderer rend;
     
     Rigidbody2D rid2D;
+    static public bool attacking = false;
 
     // Start is called before the first frame update
     void Start()
@@ -40,64 +41,67 @@ public class characterMove : MonoBehaviour
     }
 
     void PlayerAttack(){
-        if (Input.GetMouseButtonDown(0)){
+        if (Input.GetMouseButtonDown(0) &&
+            !animator.GetCurrentAnimatorStateInfo(0).IsName("Attack")){
             animator.SetTrigger("attack");
+            attacking = true;
         }
 
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("Attack")&&
-            animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f){
-            animator.SetTrigger("attackend");
+            animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.5f){
+            attacking = false;
         }
     }
 
     void PlayerMove(){
 
             speed_vec = Vector2.zero;
-
-            if (Input.GetKey(KeyCode.W)){
-                speed_vec.y += speed;
-                animator.SetFloat("runX",0);
-                animator.SetFloat("runY",1);
-                RunAnimation();
-            }
-            if (Input.GetKeyUp(KeyCode.W)){
-                animator.SetFloat("runX",0);
-                IdleAnimation();
-            }           
-            if (Input.GetKey(KeyCode.S)){
-                speed_vec.y -= speed;
-                animator.SetFloat("runX",0);
-                animator.SetFloat("runY",-1);
-                RunAnimation();
-            }
-            if (Input.GetKeyUp(KeyCode.S)){
-                animator.SetFloat("runX",0);
-                IdleAnimation();
-            }            
-            if (Input.GetKey(KeyCode.A)){
-                speed_vec.x -= speed;
-                //rend.flipX = false;
-                transform.localScale = new Vector3(0.74f,0.75f,1);
-                animator.SetFloat("runY",0);
-                animator.SetFloat("runX",1);
-                RunAnimation();           
-            }
-            if (Input.GetKeyUp(KeyCode.A)){
-                IdleAnimation();
-                animator.SetFloat("runY",0);
-            }            
-            if (Input.GetKey(KeyCode.D)){
-                speed_vec.x += speed;
-                //rend.flipX = true;
-                transform.localScale = new Vector3(-0.74f,0.75f,1);
-                animator.SetFloat("runY",0);
-                animator.SetFloat("runX",-1);
-                RunAnimation();              
-            }
-            if (Input.GetKeyUp(KeyCode.D)){
-                IdleAnimation();
-                animator.SetFloat("runY",0);
-            }            
+            if (attacking == false){
+                if (Input.GetKey(KeyCode.W)){
+                    speed_vec.y += speed;
+                    animator.SetFloat("runX",0);
+                    animator.SetFloat("runY",1);
+                    RunAnimation();
+                }
+                if (Input.GetKeyUp(KeyCode.W)){
+                    animator.SetFloat("runX",0);
+                    IdleAnimation();
+                }           
+                if (Input.GetKey(KeyCode.S)){
+                    speed_vec.y -= speed;
+                    animator.SetFloat("runX",0);
+                    animator.SetFloat("runY",-1);
+                    RunAnimation();
+                }
+                if (Input.GetKeyUp(KeyCode.S)){
+                    animator.SetFloat("runX",0);
+                    IdleAnimation();
+                }            
+                if (Input.GetKey(KeyCode.A)){
+                    speed_vec.x -= speed;
+                    //rend.flipX = false;
+                    transform.localScale = new Vector3(0.74f,0.75f,1);
+                    animator.SetFloat("runY",0);
+                    animator.SetFloat("runX",1);
+                    RunAnimation();           
+                }
+                if (Input.GetKeyUp(KeyCode.A)){
+                    IdleAnimation();
+                    animator.SetFloat("runY",0);
+                }            
+                if (Input.GetKey(KeyCode.D)){
+                    speed_vec.x += speed;
+                    //rend.flipX = true;
+                    transform.localScale = new Vector3(-0.74f,0.75f,1);
+                    animator.SetFloat("runY",0);
+                    animator.SetFloat("runX",-1);
+                    RunAnimation();              
+                }
+                if (Input.GetKeyUp(KeyCode.D)){
+                    IdleAnimation();
+                    animator.SetFloat("runY",0);
+                }   
+            }         
             GetComponent<Rigidbody2D>().velocity = speed_vec;
 
             
