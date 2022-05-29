@@ -58,22 +58,22 @@ AnimatorStateMachine:
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: 7934369267059088907}
-    m_Position: {x: 350, y: 220, z: 0}
+    m_Position: {x: 190, y: 230, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -1479857569994197457}
-    m_Position: {x: 350, y: 130, z: 0}
+    m_Position: {x: 190, y: 140, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 3411160123620209565}
-    m_Position: {x: 350, y: 0, z: 0}
+    m_Position: {x: 190, y: 30, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions:
   - {fileID: 6535114695594585388}
   m_EntryTransitions: []
   m_StateMachineTransitions: {}
   m_StateMachineBehaviours: []
-  m_AnyStatePosition: {x: 30, y: 20, z: 0}
-  m_EntryPosition: {x: 50, y: 120, z: 0}
-  m_ExitPosition: {x: 680, y: 20, z: 0}
+  m_AnyStatePosition: {x: 210, y: -80, z: 0}
+  m_EntryPosition: {x: -130, y: 130, z: 0}
+  m_ExitPosition: {x: 690, y: -80, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
   m_DefaultState: {fileID: -1479857569994197457}
 --- !u!114 &-4543312167519636165
@@ -162,6 +162,12 @@ AnimatorController:
     m_Controller: {fileID: 0}
   - m_Name: attackingY
     m_Type: 1
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 0}
+  - m_Name: teleport
+    m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
