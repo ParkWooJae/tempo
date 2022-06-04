@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class HelpButton : MonoBehaviour
 {
     Button button;
+    public GameObject HelpTab;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,6 +20,6 @@ public class HelpButton : MonoBehaviour
         
     }
     public void OnClickButton(){
-        SceneManager.LoadScene("Help");
+       HelpTab.SetActive(true);
     }
 }
