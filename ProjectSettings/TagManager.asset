@@ -12,7 +12,7 @@ TagManager:
   - Water
   - UI
   - character
-  - 
+  - Help
   - 
   - 
   - 
@@ -46,4 +46,7 @@ TagManager:
     locked: 0
   - name: UI
     uniqueID: 766059497
+    locked: 0
+  - name: Help
+    uniqueID: 597794575
     locked: 0
