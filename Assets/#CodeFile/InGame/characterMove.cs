@@ -57,6 +57,7 @@ public class characterMove : MonoBehaviour
         if (!teleportDelay){
             if (attacking == false){
                 if(Input.GetKeyDown(KeyCode.Space)){
+                    animator.SetTrigger("teleport");
                     if(transform.position.x - 2 > -11.1){
                         if(animator.GetFloat("runX") == 1){
                             transform.position += new Vector3(-2,0,0);

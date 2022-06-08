@@ -16952,7 +16952,7 @@ GameObject:
   - component: {fileID: 1634143867}
   - component: {fileID: 1634143868}
   m_Layer: 0
-  m_Name: _kul_jewel1
+  m_Name: Tp_Effect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
