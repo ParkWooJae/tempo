@@ -2,11 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
-
-public class StartButton : MonoBehaviour
+public class HelpLeftButton : MonoBehaviour
 {
     Button button;
+    public GameObject SystemTab;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,6 +19,6 @@ public class StartButton : MonoBehaviour
         
     }
     public void OnClickButton(){
-        SceneManager.LoadScene("ChoiceEnemy");
+        SystemTab.SetActive(false);
     }
 }

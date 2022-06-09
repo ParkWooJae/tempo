@@ -14,9 +14,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/#MadeScenes/ChoiceCharacter.unity
     guid: b3cfa79430421c043aefdd543f6e5f54
-  - enabled: 1
-    path: Assets/#MadeScenes/Help.unity
-    guid: 6f3bdb83105008a41af42a1fee0b4e48
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 1
     path: Assets/#MadeScenes/ChoiceEnemy.unity
     guid: 914e55f6bced577429249618f178c5fe

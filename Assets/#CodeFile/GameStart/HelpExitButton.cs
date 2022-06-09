@@ -4,9 +4,11 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class StartButton : MonoBehaviour
+public class HelpExitButton : MonoBehaviour
 {
     Button button;
+    public GameObject HelpPanel;
+    public GameObject SystemPanel;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,7 +21,9 @@ public class StartButton : MonoBehaviour
     {
         
     }
+
     public void OnClickButton(){
-        SceneManager.LoadScene("ChoiceEnemy");
+        HelpPanel.SetActive(false);
+        SystemPanel.SetActive(false);
     }
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class StartButton : MonoBehaviour
+public class OptionExitButton : MonoBehaviour
 {
     Button button;
     // Start is called before the first frame update
@@ -20,6 +20,7 @@ public class StartButton : MonoBehaviour
         
     }
     public void OnClickButton(){
-        SceneManager.LoadScene("ChoiceEnemy");
+        SceneManager.LoadScene("GameStart");
+        Debug.Log("asd");
     }
 }
