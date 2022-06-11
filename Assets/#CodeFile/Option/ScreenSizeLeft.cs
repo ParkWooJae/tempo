@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using System;
 
-public class ScreenSizeRight : MonoBehaviour
+public class ScreenSizeLeft : MonoBehaviour
 {
     int[] width = new int[10];
     int[] height = new int[10];
@@ -21,11 +21,10 @@ public class ScreenSizeRight : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
         button = GetComponent<Button>();
         button.onClick.AddListener(OnClickButton);
         ScreenText = GameObject.Find("ScreenSizeText");             
-        
+    
     }
 
     // Update is called once per frame
@@ -44,23 +43,17 @@ public class ScreenSizeRight : MonoBehaviour
 
     public void OnClickButton(){
         LoadScreenSize();
+
         FullScreen = Screen.fullScreen;
-        ScreenSizeText.text = width[loop].ToString(); 
-        if (loop > 0){
-            loop -=1;            
-            // ScreenSizeText.text = MaxScreenSize[loop];            
+        if (loop < 0){
+            loop +=1;
+            ScreenSizeText.text = MaxScreenSize[loop];
             Screen.SetResolution(width[loop],height[loop],FullScreen);
-            Debug.Log(width[loop]);
-            
-            ScreenText.GetComponent<ScreenSizeText>().loop -= 1;    
         }
         else {
             return;
         }        
-        
-         
-       
+       ScreenText.GetComponent<ScreenSizeText>().loop += 1;        
     }
-    
     
 }

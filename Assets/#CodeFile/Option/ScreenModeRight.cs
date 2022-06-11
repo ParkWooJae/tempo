@@ -13,6 +13,14 @@ public class ScreenModeRight : MonoBehaviour
     {
         button = GetComponent<Button>();
         button.onClick.AddListener(OnClickButton);
+        if (Screen.fullScreen == true){
+            WindowScreen.SetActive(false);
+            FullScreen.SetActive(true);
+        }
+        else if (Screen.fullScreen == false){
+            WindowScreen.SetActive(true);
+            FullScreen.SetActive(false);
+        }
     }
 
     // Update is called once per frame
