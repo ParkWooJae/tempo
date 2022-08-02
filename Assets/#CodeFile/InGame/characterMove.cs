@@ -34,10 +34,13 @@ public class characterMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        PlayerMove();
-        PlayerAttack();
-        PlayerTeleport();
+        if(gameObject.layer != LayerMask.NameToLayer("invinci")){
+            PlayerMove();
+            PlayerAttack();
+            PlayerTeleport();
+        }
     }
+    
 
 
 
@@ -110,11 +113,7 @@ public class characterMove : MonoBehaviour
         }
         
 
-        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Slide")&&
-            animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.5f){
-            sliding = false;
-            IdleAnimation();
-        }
+        
     }
 
     void PlayerAttack(){
@@ -148,15 +147,15 @@ public class characterMove : MonoBehaviour
         }
 
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("Attack")&&
-            animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.5f){
+            animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.64f){
             attacking = false;
-            IdleAnimation();
         }
     }
 
     void PlayerMove(){
 
             speed_vec = Vector2.zero;
+            
             if (attacking == false){
                 if (sliding == false){
                     if (Input.GetKey(KeyCode.W)){
@@ -165,20 +164,14 @@ public class characterMove : MonoBehaviour
                         animator.SetFloat("runY",1);
                         RunAnimation();
                     }
-                    if (Input.GetKeyUp(KeyCode.W)){
-                        animator.SetFloat("runX",0);
-                        IdleAnimation();
-                    }           
+                              
                     if (Input.GetKey(KeyCode.S)){
                         speed_vec.y -= speed;
                         animator.SetFloat("runX",0);
                         animator.SetFloat("runY",-1);
                         RunAnimation();
                     }
-                    if (Input.GetKeyUp(KeyCode.S)){
-                        animator.SetFloat("runX",0);
-                        IdleAnimation();
-                    }            
+                               
                     if (Input.GetKey(KeyCode.A)){
                         speed_vec.x -= speed;
                         //rend.flipX = false;
@@ -187,10 +180,7 @@ public class characterMove : MonoBehaviour
                         animator.SetFloat("runX",1);
                         RunAnimation();           
                     }
-                    if (Input.GetKeyUp(KeyCode.A)){
-                        IdleAnimation();
-                        animator.SetFloat("runY",0);
-                    }            
+                                
                     if (Input.GetKey(KeyCode.D)){
                         speed_vec.x += speed;
                         //rend.flipX = true;
@@ -199,12 +189,25 @@ public class characterMove : MonoBehaviour
                         animator.SetFloat("runX",-1);
                         RunAnimation();              
                     }
-                    if (Input.GetKeyUp(KeyCode.D)){
-                        IdleAnimation();
-                        animator.SetFloat("runY",0);
-                    }  
+                      
                 } 
-            }         
+            }       
+            if (Input.GetKeyUp(KeyCode.W)){
+                animator.SetFloat("runX",0);
+                IdleAnimation();
+            } 
+            if (Input.GetKeyUp(KeyCode.S)){
+                animator.SetFloat("runX",0);
+                IdleAnimation();
+            } 
+            if (Input.GetKeyUp(KeyCode.A)){
+                IdleAnimation();
+                animator.SetFloat("runY",0);
+            }
+            if (Input.GetKeyUp(KeyCode.D)){
+                IdleAnimation();
+                animator.SetFloat("runY",0);
+            } 
             GetComponent<Rigidbody2D>().velocity = speed_vec;
 
             
