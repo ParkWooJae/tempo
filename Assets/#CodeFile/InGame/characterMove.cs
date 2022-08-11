@@ -150,6 +150,11 @@ public class characterMove : MonoBehaviour
             animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.64f){
             attacking = false;
         }
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Hurt") ||
+            animator.GetCurrentAnimatorStateInfo(0).IsName("teleport") ){
+            attacking = false;
+        }
+        
     }
 
     void PlayerMove(){

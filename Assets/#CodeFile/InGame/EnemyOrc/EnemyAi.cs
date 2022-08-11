@@ -23,8 +23,10 @@ public class EnemyAi : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        FollowTarget();
-        RunAnimation();
+        if (gameObject.layer == 9){
+            FollowTarget();
+            RunAnimation();
+        }
     }
 
     void FollowTarget(){
@@ -58,6 +60,8 @@ public class EnemyAi : MonoBehaviour
             animator.SetFloat("OrcRunY", 0);
         }
         
+        
+
         
     }
 

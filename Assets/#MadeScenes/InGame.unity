@@ -17337,6 +17337,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bd353e53e6204942b994d772690d4c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 0}
 --- !u!1 &1233769956
 GameObject:
   m_ObjectHideFlags: 0
@@ -18263,6 +18264,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   character: {fileID: 1146453560}
+  animator: {fileID: 0}
+  Hp: 5
 --- !u!114 &1747018551
 MonoBehaviour:
   m_ObjectHideFlags: 0
