@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
 
 public class EnemyAi : MonoBehaviour
 {
@@ -10,22 +11,43 @@ public class EnemyAi : MonoBehaviour
     [Header("추격 속도")]
     [SerializeField] [Range(1f,4f)] float moveSpeed = 3f;
     public Animator animator;
+    GameObject PlayerObject;
+    CharacterHit Player;
+    bool PlayerDie = false;
+    Rigidbody2D rigid;
+
     
 
     // Start is called before the first frame update
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
-        target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
-        animator = GetComponent<Animator>();
+        if(SceneManager.GetActiveScene().name == "InGame"){
+            rb = GetComponent<Rigidbody2D>();
+            target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+            animator = GetComponent<Animator>();
+            rigid = GetComponent<Rigidbody2D>();
+            PlayerObject = GameObject.Find("character");
+        }
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (gameObject.layer == 9){
-            FollowTarget();
-            RunAnimation();
+        if(SceneManager.GetActiveScene().name == "InGame"){
+            PlayerDieCheck();
+            if(!Player.NowPlayerDie){
+                if (gameObject.layer == 9){
+                    if (PlayerObject.layer != 12){
+                        FollowTarget();
+                        RunAnimation();
+                    }
+                    else{
+                        IdleAnimation();
+                    }
+                
+                }
+            }
         }
     }
 
@@ -64,10 +86,20 @@ public class EnemyAi : MonoBehaviour
 
         
     }
-
-    // void IdleAnimation(){
-
-    // }
+    void PlayerDieCheck(){
+        if (!PlayerDie){
+            Player = GameObject.Find("character").GetComponent<CharacterHit>();
+            if (Player.NowPlayerDie){
+                gameObject.layer = 12;
+                animator.SetBool("OrcJump",true);
+                rigid.velocity = Vector3.zero;
+                PlayerDie = true;
+            }
+        }
+    }
+    void IdleAnimation(){
+        animator.SetBool("OrcRun",false);
+    }
 
 
 }

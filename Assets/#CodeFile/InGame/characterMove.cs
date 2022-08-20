@@ -8,18 +8,20 @@ using UnityEngine.UI;
 public class characterMove : MonoBehaviour
 {
     
-    public float speed;
+    public float speed, TpCool, LongCool;
     public Vector2 speed_vec; 
     public Animator animator;
+    public Image TpImage;
     //public SpriteRenderer rend;
-    public Vector2 MousePosition;
-    public Vector2 attack;
-    public Vector3 CharacterPosition;
+    Vector2 MousePosition;
+    Vector2 attack;
+    Vector3 CharacterPosition;
     Camera Camera;
     Rigidbody2D rid2D;
     static public bool attacking = false;
     static public bool sliding = false;
     static public bool teleportDelay = false;
+    bool TpCoroutine = false;
 
     // Start is called before the first frame update
     void Start()
@@ -28,6 +30,7 @@ public class characterMove : MonoBehaviour
         //rend = GetComponent<SpriteRenderer>();
         rid2D = GetComponent<Rigidbody2D>();
         Camera = GameObject.Find("Camera").GetComponent<Camera>();
+        TpImage.fillAmount = 0;
         
     }
 
@@ -38,6 +41,7 @@ public class characterMove : MonoBehaviour
             PlayerMove();
             PlayerAttack();
             PlayerTeleport();
+            TpImageTrans();
         }
     }
     
@@ -53,8 +57,10 @@ public class characterMove : MonoBehaviour
         animator.SetBool("idle",true);
     }
     IEnumerator TeleportDelay(){
-        yield return new WaitForSeconds(5.0f);
+        TpCoroutine = true;
+        yield return new WaitForSeconds(TpCool);
         teleportDelay = false;
+        TpCoroutine = false;
     }
     void PlayerTeleport(){
         if (!teleportDelay){
@@ -106,14 +112,20 @@ public class characterMove : MonoBehaviour
                         }
                     }
                     teleportDelay = true;
+                    TpImage.fillAmount = 1;
+                    
                     StartCoroutine(TeleportDelay());
                 }
             }
-
         }
-        
-
-        
+    }
+    void TpImageTrans(){
+        if(TpCoroutine){
+            TpImage.fillAmount -= 1 / TpCool * Time.deltaTime;
+            if (TpImage.fillAmount <= 0){
+                TpImage.fillAmount = 0;
+            }
+        }
     }
 
     void PlayerAttack(){
