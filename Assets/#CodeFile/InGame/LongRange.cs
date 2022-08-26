@@ -24,6 +24,9 @@ public class LongRange : MonoBehaviour
         Shoot();    
         LongImageTrans();        
     }
+    void Awake(){
+        longRangeDelay = false;
+    }
     IEnumerator ShootDelay(){
         LongCoroutine = true;
         yield return new WaitForSeconds(LongCool);

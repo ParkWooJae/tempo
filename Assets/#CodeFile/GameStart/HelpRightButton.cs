@@ -8,6 +8,7 @@ public class HelpRightButton : MonoBehaviour
 {
     Button button;
     public GameObject SystemTab;
+    public RectTransform ScrollContents;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,5 +23,6 @@ public class HelpRightButton : MonoBehaviour
     }
     public void OnClickButton(){
         SystemTab.SetActive(true);
+        ScrollContents.anchoredPosition = new Vector3(0, 0, 0);
     }
 }

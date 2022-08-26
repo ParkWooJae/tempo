@@ -10,8 +10,9 @@ public class EnemyHurt : MonoBehaviour
     public Animator animator;
     bool NowHurt = false;
     bool NowDie = false;
-    public int Hp;
+    int Hp;
     bool LongAttack = false;
+    public static float CountDie = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -29,6 +30,10 @@ public class EnemyHurt : MonoBehaviour
             OffDamaged();
             OrcDie();
         }
+    }
+    void Awake()
+    {
+        Hp = StateField.OrcHp;
     }
 
     void OnCollisionEnter2D(Collision2D collision)
@@ -77,7 +82,7 @@ public class EnemyHurt : MonoBehaviour
                 animator.SetTrigger("OrcHurt");
             }
             NowHurt = true;
-            Hp --;
+            Hp -= StateField.Power;
         }
     }
 
@@ -101,6 +106,7 @@ public class EnemyHurt : MonoBehaviour
             animator.SetTrigger("OrcDie");
             if(animator.GetCurrentAnimatorStateInfo(0).IsName("vanish")&&
                animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.7f){
+                CountDie --;
                 Destroy(gameObject);
             }
             

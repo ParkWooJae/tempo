@@ -10,24 +10,41 @@ public class CharacterHit : MonoBehaviour
     public Animator animator;
     bool NowHurt = false;
     public Image HpBar;
-    public float MaxHp;
     float NowHp;
     public bool NowPlayerDie = false;
+    public GameObject PlayerDiePage;
     // Start is called before the first frame update
     void Start()
     {
         rigid = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-        NowHp = MaxHp;
+        NowHp = StateField.Hp;
+        PlayerHpBar();
         
     }
 
     // Update is called once per frame
     void Update()
     {
+        GetState();
         OffDamaged();
         PlayerHpBar();
         DestroyPlayer();
+    }
+
+    IEnumerator TeleportInvin(){
+        gameObject.layer = 15;
+        yield return new WaitForSeconds(0.8f);
+        gameObject.layer = 6;
+    }
+
+
+    void GetState(){
+        if(StateField.StateUpdate){
+            NowHp = StateField.Hp;
+            PlayerHpBar();
+            StateField.StateUpdate = false;
+        }
     }
 
     void OnCollisionEnter2D(Collision2D collision)
@@ -35,38 +52,44 @@ public class CharacterHit : MonoBehaviour
         if(collision.gameObject.tag == "enemy"){
             if(NowHurt == false){
                 OnDamaged(collision.transform.position);
+                
             }
             
         }
     }
 
     void OnDamaged(Vector2 targetPos){
-        NowHp -= 5;
+        if(StateField.OrcPower - StateField.Armer > 1){
+            NowHp = NowHp - (StateField.OrcPower - StateField.Armer);
+        }
+        else{
+            NowHp -= 1;
+        }
+        
         if(NowHp <= 0){
             PlayerDie();
         }
         else{
-        float dircX = transform.position.x - targetPos.x;
-        float dircY = transform.position.y - targetPos.y;
+            float dircX = transform.position.x - targetPos.x;
+            float dircY = transform.position.y - targetPos.y;
 
-         if (dircX > 1){
-            dircX = 1;
-        }
-        if (dircX < -1){
-            dircX = -1;
-        }
-        if (dircY > 1){
-            dircY = 1;
-        }
-        if (dircY < -1){
-            dircY = -1;
-        }
-        
-
-        gameObject.layer = 12;  
-        NowHurt = true;      
-        animator.SetTrigger("Hit");
-        rigid.AddForce(new Vector2(dircX,dircY)*7,ForceMode2D.Impulse);
+            if (dircX > 1){
+                dircX = 1;
+            }
+            if (dircX < -1){
+                dircX = -1;
+            }
+            if (dircY > 1){
+                dircY = 1;
+            }
+            if (dircY < -1){
+                dircY = -1;
+            }
+            
+            gameObject.layer = 12;  
+            NowHurt = true;      
+            animator.SetTrigger("Hit");
+            rigid.AddForce(new Vector2(dircX,dircY)*7,ForceMode2D.Impulse);
         }
                       
     }
@@ -82,19 +105,28 @@ public class CharacterHit : MonoBehaviour
             animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.8f){
             //Destroy(gameObject);
             gameObject.SetActive(false);
+            PlayerDiePage.SetActive(true);
+            EnemyHurt.CountDie = 0;
+            StateField.OrcHp = 5;
+            StateField.OrcPower = 1;
+            StateField.Hp = StateField.DefaultHp;
+            StateField.Armer = StateField.DefaultArmer;
+            StateField.Power = StateField.DefaultPower;
+            StateField.StatePoint = 0;
+            StateField.DefaultStatePoint = 0;
         }
     }
 
     void PlayerHpBar(){
-        HpBar.fillAmount = NowHp / MaxHp;
+        HpBar.fillAmount = NowHp / StateField.Hp;
     }
 
     void OffDamaged() {
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("Hurt")&&
             animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.7f){
             rigid.velocity = Vector3.zero;
+            StartCoroutine(TeleportInvin());
             NowHurt = false;
-            gameObject.layer = 6;
         }
     }
 }

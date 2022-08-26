@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class GetEscape : MonoBehaviour
 {
-    public GameObject Exit;
+    public GameObject Exit,State;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,7 +20,11 @@ public class GetEscape : MonoBehaviour
 
     public void GetEscapeButton(){
         if(Input.GetKeyDown(KeyCode.Escape)){
+            if(StateField.CheckStatePage){
+                State.SetActive(false);
+            }
             Exit.SetActive(true);
+            StateField.CheckEscapePage = true;
         }
     }
 }

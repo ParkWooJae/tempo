@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class StateManiger : MonoBehaviour
 {
+    public int Power,Hp,Armer,StatePoint;
+    
     // Start is called before the first frame update
     void Start()
     {

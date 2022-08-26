@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class EscapeCancel : MonoBehaviour
 {
-    public GameObject Exit;
+    public GameObject Exit,EscapePage;
     Button button;
     // Start is called before the first frame update
     void Start()
@@ -22,6 +22,8 @@ public class EscapeCancel : MonoBehaviour
 
     public void OnClickButton(){
         Exit.SetActive(false);
+        EscapePage.SetActive(true);
+        
     }
     
 }

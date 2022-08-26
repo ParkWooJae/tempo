@@ -21,6 +21,5 @@ public class OptionExitButton : MonoBehaviour
     }
     public void OnClickButton(){
         SceneManager.LoadScene("GameStart");
-        Debug.Log("asd");
     }
 }

@@ -20,6 +20,6 @@ public class StartButton : MonoBehaviour
         
     }
     public void OnClickButton(){
-        SceneManager.LoadScene("ChoiceEnemy");
+        SceneManager.LoadScene("ChoiceCharacter");
     }
 }

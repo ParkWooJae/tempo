@@ -38,12 +38,14 @@ public class EnemyAi : MonoBehaviour
             PlayerDieCheck();
             if(!Player.NowPlayerDie){
                 if (gameObject.layer == 9){
-                    if (PlayerObject.layer != 12){
+                    if(!StateField.CheckEscapePage && !StateField.CheckStatePage){
+                        if (PlayerObject.layer != 12 && PlayerObject.layer != 15){
                         FollowTarget();
                         RunAnimation();
-                    }
-                    else{
-                        IdleAnimation();
+                        }
+                        else{
+                            IdleAnimation();
+                        }
                     }
                 
                 }

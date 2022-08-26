@@ -12,6 +12,7 @@ public class characterMove : MonoBehaviour
     public Vector2 speed_vec; 
     public Animator animator;
     public Image TpImage;
+    
     //public SpriteRenderer rend;
     Vector2 MousePosition;
     Vector2 attack;
@@ -33,15 +34,22 @@ public class characterMove : MonoBehaviour
         TpImage.fillAmount = 0;
         
     }
+    void Awake(){
+        teleportDelay = false;
+    }
 
     // Update is called once per frame
     void Update()
     {
         if(gameObject.layer != LayerMask.NameToLayer("invinci")){
-            PlayerMove();
-            PlayerAttack();
-            PlayerTeleport();
-            TpImageTrans();
+            if(!StateField.CheckStatePage){
+                if(!StateField.CheckEscapePage){
+                    PlayerMove();
+                    PlayerAttack();
+                    PlayerTeleport();
+                    TpImageTrans();
+                }
+            }
         }
     }
     
@@ -62,6 +70,7 @@ public class characterMove : MonoBehaviour
         teleportDelay = false;
         TpCoroutine = false;
     }
+    
     void PlayerTeleport(){
         if (!teleportDelay){
             if (attacking == false){

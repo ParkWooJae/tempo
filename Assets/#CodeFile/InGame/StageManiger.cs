@@ -1,11 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class StageManiger : MonoBehaviour
 {
     public GameObject Player;
     public GameObject Enemy;
+    public GameObject StatePage;
+    public GameObject CloseDoor;
+    public GameObject OpenDoor;
     EnemyNum SelectEnemyNum;
     private int MaxStage = 5;
     int NowStage = 0;
@@ -13,11 +17,15 @@ public class StageManiger : MonoBehaviour
     Vector3 SpawnPoint;
     float RandomX,RandomY;
     public bool NextStage = false;
+    public GameObject StatusPage;
+    
+    
     // Start is called before the first frame update
     void Start()
     {
         SelectEnemyNum = GameObject.Find("EnemyNum").GetComponent<EnemyNum>();
         MaxEnemy();
+        
     }
 
     
@@ -25,21 +33,45 @@ public class StageManiger : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        StageChange();
+        if(!StateField.CheckStatePage){
+            if(!StateField.CheckEscapePage){
+                LivingEnemy();
+                StageChange();
+            }
+        }
+        
+    }
+
+    void LivingEnemy(){
+        if(EnemyHurt.CountDie <= 0){
+            CloseDoor.SetActive(false);
+            OpenDoor.SetActive(true);
+        }
     }
 
     void StageChange(){
         if(NextStage){
+            CloseDoor.SetActive(true);
+            OpenDoor.SetActive(false);
             if(NowStage < 5){
                 Player.transform.position = new Vector3(0.18f,-5.65f,0);
                 NowStage++;
                 MakeEnemy();
                 NextStage = false;
-                Debug.Log("남은 마릿수" + MadeMaxEnemy);
+                StateField.OrcPower ++;
+                StateField.OrcHp ++;
             }
-            // else{
-            //     // 스텟창 열기 추가 해야함
-            // }
+            else{
+                StateField.StatePoint += SelectEnemyNum.EnemyNumber * 2;
+                StateField.DefaultStatePoint += SelectEnemyNum.EnemyNumber * 2;
+                StatusPage.GetComponent<Save>().StatusUpdate();
+                StatePage.SetActive(true);
+                StateField.CheckStatePage = true;
+                NextStage = false;
+                NowStage = 0;
+                MaxEnemy();
+            }
+            
         }
     }
 
@@ -54,10 +86,9 @@ public class StageManiger : MonoBehaviour
         for(int i = 1; i <= NowSpawnEnemyNum ; i++){
             SpawnPointRange();
             Instantiate(Enemy, SpawnPoint, transform.rotation);
+            EnemyHurt.CountDie ++;
             yield return new WaitForSeconds(DelayTime);
-        }
-        Debug.Log(NowSpawnEnemyNum);
-        
+        }       
     }
     void SpawnPointRange(){
         RandomX = Random.Range(9f,-9f);
@@ -76,7 +107,7 @@ public class StageManiger : MonoBehaviour
             NowSpawnEnemyNum = MadeMaxEnemy;
         }
         else{
-            NowSpawnEnemyNum = Random.Range(SelectEnemyNum.EnemyNumber, MadeMaxEnemy -(MaxStage - NowStage)*SelectEnemyNum.EnemyNumber +1); 
+            NowSpawnEnemyNum = Random.Range(SelectEnemyNum.EnemyNumber, MadeMaxEnemy -(MaxStage - NowStage)*SelectEnemyNum.EnemyNumber); 
         }       
     }
     void MaxEnemy(){
