@@ -52,9 +52,7 @@ public class CharacterHit : MonoBehaviour
         if(collision.gameObject.tag == "enemy"){
             if(NowHurt == false){
                 OnDamaged(collision.transform.position);
-                
             }
-            
         }
     }
 

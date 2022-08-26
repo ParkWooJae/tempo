@@ -97,7 +97,7 @@ public class StageManiger : MonoBehaviour
         float CheckX, CheckY;
         CheckX = RandomX - Player.transform.position.x;
         CheckY = RandomY - Player.transform.position.y;
-        if(0.5f > Mathf.Abs(CheckX) || 0.5f > Mathf.Abs(CheckY)){
+        if(0.8f > Mathf.Abs(CheckX) && 0.8f > Mathf.Abs(CheckY)){
             SpawnPointRange();
         }
                 
