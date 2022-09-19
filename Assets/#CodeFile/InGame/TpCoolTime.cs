@@ -18,7 +18,14 @@ public class TpCoolTime : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Ability1();
+        //Ability1();
+    }
+    IEnumerator CoolTime(){
+        while(cooldown1 > 1.0f){
+            cooldown1 -= Time.deltaTime;
+            abilityImage1.fillAmount = (1.0f / cooldown1);
+            yield return new WaitForFixedUpdate();
+        }
     }
 
     void Ability1(){
@@ -27,6 +34,9 @@ public class TpCoolTime : MonoBehaviour
             abilityImage1.fillAmount = 1;
         }
         if (isCooldown){
+            cooldown1 = 5;
+            StartCoroutine(CoolTime());
+
             abilityImage1.fillAmount -= 1 / cooldown1 * Time.deltaTime;
 
             if (abilityImage1.fillAmount <= 0){

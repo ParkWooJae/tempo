@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class StageManiger : MonoBehaviour
 {
@@ -18,6 +19,7 @@ public class StageManiger : MonoBehaviour
     float RandomX,RandomY;
     public bool NextStage = false;
     public GameObject StatusPage;
+    public TMP_Text  StageText;
     
     
     // Start is called before the first frame update
@@ -70,6 +72,12 @@ public class StageManiger : MonoBehaviour
                 NextStage = false;
                 NowStage = 0;
                 MaxEnemy();
+            }
+            if(NowStage == 0){
+                StageText.text = ("Ready");
+            }
+            else{
+                StageText.text = NowStage.ToString() + (" Stage");
             }
             
         }

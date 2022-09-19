@@ -22,7 +22,7 @@ public class characterMove : MonoBehaviour
     static public bool attacking = false;
     static public bool sliding = false;
     static public bool teleportDelay = false;
-    bool TpCoroutine = false;
+    //bool TpCoroutine = false;
 
     // Start is called before the first frame update
     void Start()
@@ -47,7 +47,7 @@ public class characterMove : MonoBehaviour
                     PlayerMove();
                     PlayerAttack();
                     PlayerTeleport();
-                    TpImageTrans();
+                    
                 }
             }
         }
@@ -65,10 +65,15 @@ public class characterMove : MonoBehaviour
         animator.SetBool("idle",true);
     }
     IEnumerator TeleportDelay(){
-        TpCoroutine = true;
-        yield return new WaitForSeconds(TpCool);
+        //TpCoroutine = true;
+        float cooldown1 = 5;
+        while(cooldown1 > 0){
+            cooldown1 -= Time.deltaTime;
+            TpImage.fillAmount -= 1 / TpCool * Time.deltaTime;
+            yield return new WaitForFixedUpdate();
+        }
         teleportDelay = false;
-        TpCoroutine = false;
+        //TpCoroutine = false;
     }
     
     void PlayerTeleport(){
@@ -128,14 +133,7 @@ public class characterMove : MonoBehaviour
             }
         }
     }
-    void TpImageTrans(){
-        if(TpCoroutine){
-            TpImage.fillAmount -= 1 / TpCool * Time.deltaTime;
-            if (TpImage.fillAmount <= 0){
-                TpImage.fillAmount = 0;
-            }
-        }
-    }
+    
 
     void PlayerAttack(){
         if (Input.GetMouseButtonDown(0) &&

@@ -13,6 +13,7 @@ public class SelectEnemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        
         button = GetComponent<Button>();
         button.onClick.AddListener(OnClickButton);
     }
@@ -22,6 +23,16 @@ public class SelectEnemy : MonoBehaviour
     {
         CheckToggle();
     }
+
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if(scene.name == ("ChoiceEnemy")){
+            ChoiceEnemyNum = 0;
+        }
+        Debug.Log("OnSceneLoaded: " + scene.name);
+        Debug.Log(mode);
+    }
+
     public void OnClickButton(){
         if(ChoiceEnemyNum != 0){
             SceneManager.LoadScene("InGame");

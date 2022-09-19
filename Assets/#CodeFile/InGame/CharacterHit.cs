@@ -36,6 +36,7 @@ public class CharacterHit : MonoBehaviour
         gameObject.layer = 15;
         yield return new WaitForSeconds(0.8f);
         gameObject.layer = 6;
+        NowHurt = false;
     }
 
 
@@ -84,8 +85,8 @@ public class CharacterHit : MonoBehaviour
                 dircY = -1;
             }
             
+            NowHurt = true;
             gameObject.layer = 12;  
-            NowHurt = true;      
             animator.SetTrigger("Hit");
             rigid.AddForce(new Vector2(dircX,dircY)*7,ForceMode2D.Impulse);
         }
@@ -124,7 +125,7 @@ public class CharacterHit : MonoBehaviour
             animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.7f){
             rigid.velocity = Vector3.zero;
             StartCoroutine(TeleportInvin());
-            NowHurt = false;
+            
         }
     }
 }
